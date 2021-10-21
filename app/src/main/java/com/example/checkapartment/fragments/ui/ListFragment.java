@@ -26,7 +26,7 @@ public class ListFragment extends Fragment {
         binding = FragmentListBinding.inflate(inflater, container, false);
 
         img = binding.imageViewPrueba;
-        String url = "https://http2.mlstatic.com/D_NQ_NP_2X_823467-MLC46566633356_062021-F.webp";
+        String url = "https://http2.mlstatic.com/D_NQ_NP_852648-MLC41532980127_042020-O.webp";
         Glide.with(this).load(url).into(img);
 
         return binding.getRoot();
