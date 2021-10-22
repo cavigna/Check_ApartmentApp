@@ -1,5 +1,7 @@
 package com.example.checkapartment.fragments.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,8 +27,8 @@ public class DetailsFragment extends Fragment {
     ImageView img;
     CheckBox cbDorm, cbBath, cbLuces, cbCocina;
     RadioButton rbNormal, rbRegular, rbDef;
-    TextView tvNombre, tvUnidad, tvDir;
-    Button boton;
+    TextView tvNombre, tvUnidad, tvDir, tvPuntaje;
+    Button boton, botonAlerta;
 
 
     @Override
@@ -47,18 +49,24 @@ public class DetailsFragment extends Fragment {
             tvDir.setText("Dirección: " + departamento.getDireccion());
             tvUnidad.setText("Unidad: " + departamento.getUnidad());
 
+
         });
+
+//        viewModel.getPuntajeMutable().observe(getViewLifecycleOwner(), integer->{
+//            viewModel.setPuntajeMutable(10);
+//            tvPuntaje.setText("Puntaje:" + viewModel.getPuntajeMutable().getValue().toString());
+//        });
+
+        tvPuntaje.setText("Puntaje:" + String.valueOf(viewModel.getPuntajeMutable().getValue()));
 
         boton.setOnClickListener(view -> {
 
-        escribirPuntajeBD(id);
+            escribirPuntajeBD(id);
 
+        });
 
-
-
-
-
-
+        botonAlerta.setOnClickListener(view -> {
+            composeEmail(new String[]{"address@mail.com"},"algo", null );
         });
 
 
@@ -79,56 +87,84 @@ public class DetailsFragment extends Fragment {
         rbRegular = binding.cbRegular;
         rbDef = binding.cbDef;
         boton = binding.button;
+        botonAlerta = binding.buttonAlerta;
+        tvPuntaje = binding.tvPuntaje;
+
+        botonAlerta.setEnabled(false);
+        botonAlerta.setClickable(false);
     }
 
-    public void escribirPuntajeBD(int id){
+    public void escribirPuntajeBD(int id) {
         boolean lucesBool = cbLuces.isChecked();
         boolean bathBool = cbBath.isChecked();
         boolean dormBool = cbDorm.isChecked();
         boolean cocinaBool = cbCocina.isChecked();
 
         viewModel.deptoById(id).observe(getViewLifecycleOwner(), departamento -> {
-            if (lucesBool){
+            if (lucesBool) {
                 departamento.setLuces(10);
-            }else {
+                viewModel.setPuntajeMutable(10);
+            } else {
                 departamento.setLuces(0);
             }
-          //  viewModel.actualizarDepartamento(departamento);
+            departamento.calcularPuntaje();
+            viewModel.setPuntajeMutable(10);
+            //  viewModel.actualizarDepartamento(departamento);
 
-            if(bathBool){
+            if (bathBool) {
                 departamento.setBath(40);
-            }else {
+            } else {
                 departamento.setBath(0);
             }
-           // viewModel.actualizarDepartamento(departamento);
+            // viewModel.actualizarDepartamento(departamento);
 
-            if(dormBool){
+            if (dormBool) {
                 departamento.setDormitorio(20);
-            }else {
+            } else {
                 departamento.setDormitorio(0);
             }
-           // viewModel.actualizarDepartamento(departamento);
+            // viewModel.actualizarDepartamento(departamento);
 
-            if(cocinaBool){
+            if (cocinaBool) {
                 departamento.setCocina(30);
-            }else {
+            } else {
                 departamento.setCocina(0);
             }
-           // viewModel.actualizarDepartamento(departamento);
+            // viewModel.actualizarDepartamento(departamento);
 
-            if(rbNormal.isChecked() || rbRegular.isChecked() || rbDef.isChecked()){
-                if(rbNormal.isChecked()){
+            if (rbNormal.isChecked() || rbRegular.isChecked() || rbDef.isChecked()) {
+                if (rbNormal.isChecked()) {
                     departamento.setTerminaciones(3);
-                } else if (rbRegular.isChecked()){
+                } else if (rbRegular.isChecked()) {
                     departamento.setTerminaciones(2);
-                }else {
+                } else {
                     departamento.setTerminaciones(1);
                 }
+            } else {
+                departamento.setTerminaciones(0);
             }
 
             departamento.calcularPuntaje();
             viewModel.actualizarDepartamento(departamento);
+
+
+            if(departamento.getPuntaje()<130){
+                botonAlerta.setEnabled(true);
+                botonAlerta.setEnabled(true);
+            }
         });
+    }
+
+    public void composeEmail(String[] addresses, String subject, Uri attachment) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_STREAM, attachment);
+        intent.putExtra(Intent.EXTRA_TEXT, "The email body");
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
 

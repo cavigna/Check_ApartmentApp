@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
             if (contadorClicks < 3) {
                 Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_listFragment);
 
-                //controlLogin();
+                controlLogin();
                 contadorClicks+=1;
 
                 Toast.makeText(getContext(), "Restan " + (3-contadorClicks+1) + " intentos"

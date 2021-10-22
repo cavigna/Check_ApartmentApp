@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.checkapartment.model.Departamento;
 import com.example.checkapartment.repository.DeptoRepository;
@@ -16,7 +17,8 @@ public class DeptoViewModel extends AndroidViewModel {
     private LiveData<List<Departamento>> allDeptos;
     private LiveData<Departamento> deptoById;
     private int deptoId;
-    private String campo;
+    private MutableLiveData<Integer> puntajeMutable = new MutableLiveData<>(100);
+
 
 
 
@@ -24,7 +26,16 @@ public class DeptoViewModel extends AndroidViewModel {
         super(application);
         repository = new DeptoRepository(application);
         allDeptos = repository.getAllDeptos();
-        //deptoById = repository.getDepartamentoById(deptoId);
+
+
+    }
+
+    public MutableLiveData<Integer> getPuntajeMutable() {
+        return puntajeMutable;
+    }
+
+    public void setPuntajeMutable(int puntaje) {
+        this.puntajeMutable.setValue(puntaje);
     }
 
     public LiveData<List<Departamento>> getAllDeptos() {
