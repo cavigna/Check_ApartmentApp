@@ -20,7 +20,7 @@ public interface DepartamentoDao {
     void borrarDepartamento(Departamento departamento);
 
     @Update
-    void actualizarDepartamento(Departamento departamento);
+    void actualizarDepartamento(Departamento ... departamento);
 
 //    @Query("UPDATE SET COLUMN_TITLE=:text WHERE id=:id")
 //    void UpdateColumnById (String text, int id);
@@ -28,6 +28,11 @@ public interface DepartamentoDao {
 
 //    @Query("SELECT nombre, unidad, direccion, puntaje  FROM departamentos")
 //    LiveData<List<Departamento>> allDepartamentos();
+
+    //@Query("SELECT * FROM DEP")
+
+    @Query("SELECT *  FROM departamentos")
+    LiveData<List<Departamento>> allDepartamentos();
 
     @Query("SELECT * FROM departamentos WHERE id = :id")
     LiveData<Departamento> departamentoById(int id);
