@@ -16,6 +16,7 @@ public class DeptoViewModel extends AndroidViewModel {
     private LiveData<List<Departamento>> allDeptos;
     private LiveData<Departamento> deptoById;
     private int deptoId;
+    private String campo;
 
 
 
@@ -23,7 +24,7 @@ public class DeptoViewModel extends AndroidViewModel {
         super(application);
         repository = new DeptoRepository(application);
         allDeptos = repository.getAllDeptos();
-        deptoById = repository.getDepartamentoById(deptoId);
+        //deptoById = repository.getDepartamentoById(deptoId);
     }
 
     public LiveData<List<Departamento>> getAllDeptos() {
@@ -31,6 +32,16 @@ public class DeptoViewModel extends AndroidViewModel {
     }
 
     public void actualizarDepartamento(Departamento depto){repository.actualizarDepartamento(depto);}
+
+
+    public void actualizarLuces(int id, int score){
+        repository.actualizarLuces(id, score);
+    }
+
+    public void actualizarCampo(int score){
+        repository.actualizarCampo(score);
+    }
+
 
     public LiveData<Departamento> deptoById(int id){
         return repository.DepartamentoById(id);
