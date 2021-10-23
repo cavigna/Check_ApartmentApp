@@ -70,8 +70,10 @@ public class DetailsFragment extends Fragment {
 
         });
 
+
+
         botonAlerta.setOnClickListener(view -> {
-            composeEmail(new String[]{"address@mail.com"}, "algo", null);
+            composeEmail(new String[]{"address@mail.com"}, "algo", "Algo");
         });
 
 
@@ -95,8 +97,10 @@ public class DetailsFragment extends Fragment {
         botonAlerta = binding.buttonAlerta;
         tvPuntaje = binding.tvPuntaje;
 
-        botonAlerta.setEnabled(false);
-        botonAlerta.setClickable(false);
+        botonAlerta.setVisibility(View.GONE);
+
+//        botonAlerta.setEnabled(false);
+//        botonAlerta.setClickable(false);
     }
 
     public void escribirPuntajeBD(int id) {
@@ -114,7 +118,7 @@ public class DetailsFragment extends Fragment {
             } else {
                 departamento.setLuces(0);
             }
-            departamento.calcularPuntaje();
+
 
 
             if (bathBool) {
@@ -129,8 +133,7 @@ public class DetailsFragment extends Fragment {
             } else {
                 departamento.setDormitorio(0);
             }
-            departamento.calcularPuntaje();
-            viewModel.setPuntajeDpto(departamento.getPuntaje());
+
 
 
             if (cocinaBool) {
@@ -156,14 +159,10 @@ public class DetailsFragment extends Fragment {
             viewModel.actualizarDepartamento(departamento);
             viewModel.setPuntajeDpto(departamento.getPuntaje());
 
-
-            if (viewModel.getPuntajeDpto() < 130) {
-                botonAlerta.setEnabled(true);
-                botonAlerta.setEnabled(true);
-            } else {
-                botonAlerta.setEnabled(false);
-                botonAlerta.setClickable(false);
+            if (viewModel.getPuntajeDpto()!=0 && viewModel.getPuntajeDpto() < 130) {
+                botonAlerta.setVisibility(View.VISIBLE);
             }
+
 
 
         });
@@ -172,6 +171,7 @@ public class DetailsFragment extends Fragment {
     public void composeEmail(String[] addresses, String subject, String mensaje) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("*/*");
+        //intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, mensaje);
@@ -179,7 +179,6 @@ public class DetailsFragment extends Fragment {
             startActivity(intent);
         }
     }
-
 
 
 }

@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
             tilpass.setError(null);
             tilemail.setError(null);
             loginBol = true;
-            //Toast.makeText(getContext(), "TODO OK", Toast.LENGTH_LONG).show();
+
             Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_listFragment);
 
         }

@@ -76,7 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
-            android:inputType="none|textPersonName" />
+            android:inputType="none|textPersonName"
+            android:password="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
