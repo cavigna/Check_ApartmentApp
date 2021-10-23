@@ -23,7 +23,8 @@ public class LoginFragment extends Fragment {
     FragmentLoginBinding binding;
     TextInputLayout tilemail, tilpass;
     Button boton;
-    int contadorClicks = 0;
+    private int contadorClicks = 2;
+    private boolean loginBol = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,20 +37,22 @@ public class LoginFragment extends Fragment {
 
         boton.setOnClickListener(view -> {
 
-            if (contadorClicks < 3) {
-                Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_listFragment);
+
+            if (contadorClicks != 0) {
 
                 controlLogin();
-                contadorClicks+=1;
-
-                Toast.makeText(getContext(), "Restan " + (3-contadorClicks+1) + " intentos"
-                        , Toast.LENGTH_LONG).show();
+                contadorClicks--;
+                if (!loginBol) {
+                    Toast.makeText(getContext(), "Restan " + (contadorClicks + 1) + " intentos"
+                            , Toast.LENGTH_SHORT).show();
+                }
             } else {
                 boton.setEnabled(false);
                 boton.setClickable(false);
                 Toast.makeText(getContext(), "Demasiados intentos fallidos. Reinicie App"
-                , Toast.LENGTH_LONG).show();
+                        , Toast.LENGTH_LONG).show();
             }
+
         });
 
         return binding.getRoot();
@@ -80,7 +83,8 @@ public class LoginFragment extends Fragment {
         if (!email.isEmpty() && !pass.isEmpty() && passOk && validEmail) {
             tilpass.setError(null);
             tilemail.setError(null);
-            Toast.makeText(getContext(), "TODO OK", Toast.LENGTH_LONG).show();
+            loginBol = true;
+            //Toast.makeText(getContext(), "TODO OK", Toast.LENGTH_LONG).show();
             Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_listFragment);
 
         }

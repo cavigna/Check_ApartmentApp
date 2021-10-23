@@ -19,6 +19,8 @@ public class DeptoViewModel extends AndroidViewModel {
     private int deptoId;
     private MutableLiveData<Integer> puntajeMutable = new MutableLiveData<>(100);
 
+    private int puntajeDpto = 0;
+
 
 
 
@@ -68,5 +70,14 @@ public class DeptoViewModel extends AndroidViewModel {
 
     public void setDeptoId(int deptoId) {
         this.deptoId = deptoId;
+    }
+
+
+    public int getPuntajeDpto() {
+        return puntajeDpto;
+    }
+
+    public void setPuntajeDpto(int puntajeDpto) {
+        this.puntajeDpto = puntajeDpto;
     }
 }

@@ -8,12 +8,15 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="380dp"
-        android:layout_height="200dp"
+        android:layout_height="350dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="34dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="#FFCCBC"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,39 +30,68 @@
                 android:id="@+id/tvNombreRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="28dp"
                 android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvDireccionRow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.127"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imgViewRow" />
 
             <TextView
                 android:id="@+id/tvUnidadRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="12dp"
                 android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/tvNombreRow"
-                app:layout_constraintTop_toBottomOf="@+id/tvNombreRow" />
-
-            <TextView
-                android:id="@+id/tvDireccionRow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/tvUnidadRow"
-                app:layout_constraintTop_toBottomOf="@+id/tvUnidadRow" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvPuntajeRow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDireccionRow" />
 
             <TextView
                 android:id="@+id/tvPuntajeRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/tvDireccionRow"
-                app:layout_constraintTop_toBottomOf="@+id/tvDireccionRow" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUnidadRow" />
+
+            <TextView
+                android:id="@+id/tvDireccionRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvUnidadRow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNombreRow" />
+
+            <ImageView
+                android:id="@+id/imgViewRow"
+                android:layout_width="300dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvNombreRow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.52"
+                app:layout_constraintVertical_chainStyle="spread"
+                tools:srcCompat="@tools:sample/avatars" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

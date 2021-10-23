@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.checkapartment.databinding.FragmentDetailsBinding;
 import com.example.checkapartment.viewmodel.DeptoViewModel;
+
+import java.util.ArrayList;
 
 
 public class DetailsFragment extends Fragment {
@@ -57,16 +60,18 @@ public class DetailsFragment extends Fragment {
 //            tvPuntaje.setText("Puntaje:" + viewModel.getPuntajeMutable().getValue().toString());
 //        });
 
-        tvPuntaje.setText("Puntaje:" + String.valueOf(viewModel.getPuntajeMutable().getValue()));
 
         boton.setOnClickListener(view -> {
 
             escribirPuntajeBD(id);
+            tvPuntaje.setText("Puntaje:" + viewModel.getPuntajeDpto());
+
+            Log.i("puntaje", "puntaje: " + String.valueOf(viewModel.getPuntajeDpto()));
 
         });
 
         botonAlerta.setOnClickListener(view -> {
-            composeEmail(new String[]{"address@mail.com"},"algo", null );
+            composeEmail(new String[]{"address@mail.com"}, "algo", null);
         });
 
 
@@ -101,36 +106,39 @@ public class DetailsFragment extends Fragment {
         boolean cocinaBool = cbCocina.isChecked();
 
         viewModel.deptoById(id).observe(getViewLifecycleOwner(), departamento -> {
+
+
             if (lucesBool) {
                 departamento.setLuces(10);
-                viewModel.setPuntajeMutable(10);
+
             } else {
                 departamento.setLuces(0);
             }
             departamento.calcularPuntaje();
-            viewModel.setPuntajeMutable(10);
-            //  viewModel.actualizarDepartamento(departamento);
+
 
             if (bathBool) {
                 departamento.setBath(40);
             } else {
                 departamento.setBath(0);
             }
-            // viewModel.actualizarDepartamento(departamento);
+
 
             if (dormBool) {
                 departamento.setDormitorio(20);
             } else {
                 departamento.setDormitorio(0);
             }
-            // viewModel.actualizarDepartamento(departamento);
+            departamento.calcularPuntaje();
+            viewModel.setPuntajeDpto(departamento.getPuntaje());
+
 
             if (cocinaBool) {
                 departamento.setCocina(30);
             } else {
                 departamento.setCocina(0);
             }
-            // viewModel.actualizarDepartamento(departamento);
+
 
             if (rbNormal.isChecked() || rbRegular.isChecked() || rbDef.isChecked()) {
                 if (rbNormal.isChecked()) {
@@ -146,26 +154,32 @@ public class DetailsFragment extends Fragment {
 
             departamento.calcularPuntaje();
             viewModel.actualizarDepartamento(departamento);
+            viewModel.setPuntajeDpto(departamento.getPuntaje());
 
 
-            if(departamento.getPuntaje()<130){
+            if (viewModel.getPuntajeDpto() < 130) {
                 botonAlerta.setEnabled(true);
                 botonAlerta.setEnabled(true);
+            } else {
+                botonAlerta.setEnabled(false);
+                botonAlerta.setClickable(false);
             }
+
+
         });
     }
 
-    public void composeEmail(String[] addresses, String subject, Uri attachment) {
+    public void composeEmail(String[] addresses, String subject, String mensaje) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("*/*");
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_STREAM, attachment);
-        intent.putExtra(Intent.EXTRA_TEXT, "The email body");
+        intent.putExtra(Intent.EXTRA_TEXT, mensaje);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
     }
+
 
 
 }
