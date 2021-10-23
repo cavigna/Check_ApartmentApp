@@ -8,7 +8,7 @@ Si el usuario ingresa mal su email y/o contraseña o si los campos estan vacios.
 </br>
 
 ![](./imagenes/1.png)
- <img src="./images/1.png" width="400" height="200"/> 
+
 </br>
 </br>
 
