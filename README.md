@@ -7,17 +7,20 @@ Si el usuario ingresa mal su email y/o contraseña o si los campos estan vacios.
 </br>
 
 ![](./imagenes/1.png)
+ <img src="./images/1.png" width="400" height="200"/> 
 </br>
 </br>
 
 ## Bloqueo de App
 Al Cumplir los 3 intentos, el boton y la app se bloquea.
 </br>
+
 ![](./imagenes/2.png)
 
 ## RecyclerView
 Despues de un log in exitoso, se muestra un fragmento con un recyclerview de los departamentos. Con su nombre, dirección, unidad puntaje y su foto.
 </br>
+
 ![](./imagenes/3.png)
 
 
